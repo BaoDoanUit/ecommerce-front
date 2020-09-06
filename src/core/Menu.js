@@ -26,13 +26,52 @@ const Menu = (props) => {
         <li className="nav-item">
           <Link
             className="nav-link"
-            style={isActive(props.history, "/dashboard")}
-            to="/dashboard"
+            style={isActive(props.history, "/shop")}
+            to="/shop"
           >
-            Dashboard
+            Shop
           </Link>
         </li>
-        {!isAuthenticated() && (
+        {isAuthenticated() && isAuthenticated().user.role === 0 && (
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(props.history, "/user/dashboard")}
+              to="/user/dashboard"
+            >
+              Dashboard
+            </Link>
+          </li>
+        )}
+        {isAuthenticated() && isAuthenticated().user.role === 1 && (
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(props.history, "/admin/dashboard")}
+              to="/admin/dashboard"
+            >
+              Dashboard
+            </Link>
+          </li>
+        )}
+        {isAuthenticated() ? (
+          <Fragment>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={isActive(props.history, "/signout")}
+                to="/signin"
+                onClick={() =>
+                  signout(() => {
+                    props.history.push("/");
+                  })
+                }
+              >
+                SignOut
+              </Link>
+            </li>
+          </Fragment>
+        ) : (
           <Fragment>
             <li className="nav-item">
               <Link
@@ -51,24 +90,6 @@ const Menu = (props) => {
               >
                 SignUp
               </Link>
-            </li>
-          </Fragment>
-        )}
-
-        {isAuthenticated() && (
-          <Fragment>
-            <li className="nav-item">
-              <span
-                className="nav-link"
-                style={{ cursor: "pointer", color: "#ffffff" }}
-                onClick={() =>
-                  signout(() => {
-                    props.history.push("/");
-                  })
-                }
-              >
-                SignOut
-              </span>
             </li>
           </Fragment>
         )}
