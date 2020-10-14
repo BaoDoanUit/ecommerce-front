@@ -14,6 +14,7 @@ const Home = () => {
       if (data.error) {
         setError(data.error);
       } else {
+     //   console.log(data);
         setProductsBySell(data);
       }
     });
@@ -24,6 +25,8 @@ const Home = () => {
       if (data.error) {
         setError(data.error);
       } else {
+       // console.log(data);
+
         serProductsByArrival(data);
       }
     });
@@ -35,18 +38,19 @@ const Home = () => {
   }, []);
 
   return (
-    <Layout title="Home page" description="Node React E-commerce App">
+    <Layout title="Home page" 
+    description="Node React E-commerce App">
       <Search></Search>
-      <h2 className="mb-4">New Arrivals</h2>
-      <div className="row">
+      <h2 className="ml-2 mb-4">New Arrivals</h2>
+      <div className="row ml-2 mr-2">
         {productsByArrival.map((product, i) => (
           <div key={i} className="col-4 mb-3">
             <Card product={product}></Card>
           </div>
         ))}
       </div>
-      <h2 className="mb-4">Best Sellers</h2>
-      <div className="row">
+      <h2 className="ml-2 mb-4">Best Sellers</h2>
+      <div className="row ml-2 mr-2">
         {productsBySell.map((product, i) => (
           <div key={i} className="col-4 mb-3">
             <Card product={product}></Card>
